@@ -1,0 +1,24 @@
+{% load_avatar_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+</head>
+<body>
+   
+    </div>
+    <h1>Hello {{user.first_name}} {{user.last_name}}</h1>
+    {% for post in user.user_messages.all %}
+    <p>{{post.message}}</p>
+    {% endfor %}
+    {% for comment in user.user_comments.all %}
+    <p>{{comment.comment}}</p>
+    {% endfor %}
+    </form>
+    </div>
+</body>
+</html>

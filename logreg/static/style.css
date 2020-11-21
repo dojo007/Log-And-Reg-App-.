@@ -1,0 +1,77 @@
+#otpi{
+    
+    background-image:url("love2.png");
+    width: 1200px;
+    height: auto;
+    padding: 100px;
+    
+}
+#lemini{
+    background-image:url("hi4.png");
+}
+.box1{
+    display: inline-block;
+    background-color: rgba(27, 69, 80, 0.103);
+    width: 400px;
+    min-height: 500px;
+    padding: 25px;
+    vertical-align: top;
+    margin: 40px;
+    border-style: double 60px;
+}
+
+
+.box1 input{
+       
+        display: block;
+        margin: 10px;
+        text-decoration-color: lightgray;
+    }
+
+#errors {
+    
+    text-align: center;
+    color: rgb(215, 221, 217);
+    padding: 20px;
+    height: 125px;
+}
+#posts {
+   
+    padding: 15px;
+    margin: 15px;
+}
+.one_post {
+    background-image:url("hi7.png");
+    padding: 22px;
+    margin: 22px;
+    min-height: 100px;
+    width: 700px;
+    font:white;
+    display: center;
+    
+}
+.post{
+    background-image:url("hi7.png");
+    font-size: 16pt;
+    text-align: center;
+}
+.poster {
+    background-image:url("hi7.png");
+    font-size: 11pt;
+    text-align: center;
+}
+#write{
+    background-image:url("hi.png");
+    text-align: center;
+}
+.renu{
+    background-image:url('final.png');
+    font-size: 11pt;
+    text-align: center;
+    border: solid-black;
+}
+
+h4{
+    background-image:url("hi3.png");
+    float: right;
+ 

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% load static %}
+    <title>Edit User</title>
+</head>
+<body>
+    <h1>Edit_User_Form</h1>
+    <form action="/process_edit/{{user.id}}" method=POST>
+        {% csrf_token %}
+    <input type="text" name='message' value={{edit_mess.message}}>
+    <input type="submit" value='Edit Message'>
+    </form>
+</body>
+</html>

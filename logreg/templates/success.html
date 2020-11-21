@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Success!!!!</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div id="lemini">
+        
+        <a href="/logout"><h4>Logout</h4></a>
+        <h1>Welcome to {{user.first_name}}'s Wall!</h1>
+
+        <div id='write'>
+            <h2>Write a Post:</h2>
+            <form action="/process_message" method=POST>
+                {% csrf_token %}
+                <input type="text" name='mess'>
+                <input type="submit" value="Post">
+            </form>
+        </div>
+        <div id='posts'>
+            {% for post in wall_messages %}
+            <div class='one_post'>
+                {% if request.session.id is post.poster.id %}
+                <a href="/delete/{{post.id}}">Delete</a>
+                <a href="/edit/{{post.id}}">Edit</a>
+                {% endif %}
+                {{post.id}}
+                <p class='post'>{{post.message}}</p>
+                <p class='poster'>By: <a href="/user_profile/{{post.poster.id}}">{{post.poster.first_name}}
+                        {{post.poster.last_name}}</a></p>
+                <a href="/like/{{post.id}}">Like!</a>
+                <p>{{ post.user_likes.count }}</p>
+                <form action="/add_comment/{{post.id}}" method=POST>
+                    {% csrf_token %}
+                    Comment: <input type="text" name='comment'>
+                    <input type="submit" value='submit'>
+                </form>
+                {% for comment in post.post_comments.all %}
+                <p>{{comment.comment}}</p>
+                <p>poster: {{comment.poster.first_name}} {{comment.poster.last_name}}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <div class ="renu">
+                <h2>edit my account</h2>
+                <form action="edit/{{user.id}}" method=POST>
+                    {% csrf_token %}
+                    First Name: <input type="text" name='fname' value={{user.first_name}}>
+                    Last Name: <input type="text" name='lname' value={{user.last_name}}>
+                    Email: <input type="text" name='email' value={{user.email}}>
+                    <input type="submit" value='update'>
+                </form>
+            </div>
+                  }
+                </div>   
+        </div>
+
+    </div>
+</body>
+
+</html>
