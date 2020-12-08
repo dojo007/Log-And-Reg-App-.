@@ -12,8 +12,12 @@
 
 <body>
     <div id="lemini">
-        
-        <a href="/logout"><h4>Logout</h4></a>
+        <div>
+            <a href="/logout"><h4>Logout</h4></a>
+        </div>
+        <div>
+            <a href="/user_profile/{{user.id}}" style="text-align:left;"><h3>Profile</h3></a>
+        </div>
         <h1>Welcome to {{user.first_name}}'s Wall!</h1>
 
         <div id='write'>
@@ -45,6 +49,8 @@
                 {% for comment in post.post_comments.all %}
                 <p>{{comment.comment}}</p>
                 <p>poster: {{comment.poster.first_name}} {{comment.poster.last_name}}</p>
+                <p>Delete User: <a href="/user/{{post.poster.id}}">{{post.poster.first_name}}
+                        {{post.poster.last_name}}</a></p>
                 {% endfor %}
             </div>
             {% endfor %}
@@ -58,10 +64,7 @@
                     <input type="submit" value='update'>
                 </form>
             </div>
-                  }
-                </div>   
         </div>
-
     </div>
 </body>
 

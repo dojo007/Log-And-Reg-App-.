@@ -1,6 +1,22 @@
 from django.db import models
 import re
 
+
+class Permission(models.Model):
+    # short, underscore-formatted name
+    codename = models.CharField(max_length=100, unique=True)
+    # human-readable name
+    name = models.CharField(max_length=100, unique=True)
+
+
+class Role(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    permissions = models.ManyToManyField(Permission)
+
+    def has_permission(self, codename):
+        return self.permissions.filter(codename=codename).exists()
+
+
 class UserManager(models.Manager):
     def basic_validator(self, postdata):
         errors = {}
@@ -14,13 +30,15 @@ class UserManager(models.Manager):
         if postdata['pw'] != postdata['confpw']:
             errors['pw'] = 'Password and Confirm Password do not match'
         return errors
-        
+
 
 class User(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
+    profile_pic = models.FileField(upload_to="media/", null=True)
+    global_role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
     objects = UserManager()
 
 class Wall_Message(models.Model):
@@ -32,5 +50,4 @@ class Comment(models.Model):
     comment = models.CharField(max_length=255)
     poster = models.ForeignKey(User, related_name='user_comments', on_delete=models.CASCADE)
     wall_message = models.ForeignKey(Wall_Message, related_name="post_comments", on_delete=models.CASCADE)
-
 

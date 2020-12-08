@@ -1,4 +1,7 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+
+from .forms import UserProfileFrom
 from .models import *
 from django.contrib import messages
 
@@ -35,7 +38,7 @@ def register(request):
 
 def login(request):
     print(request.POST)
-   
+
     logged_user = User.objects.filter(email=request.POST['email'])
     if len(logged_user) > 0:
         logged_user = logged_user[0]
@@ -103,8 +106,22 @@ def user_edit(request, id):
     user.last_name = request.POST['lname']
     user.email = request.POST['email']
     user.save()
-    
+
+    return redirect('/success')
+
+def upload_profile_pic(request, id):
+    user = User.objects.get(pk=id)
+    user_form = UserProfileFrom(request.POST, request.FILES, instance=user)
+    if user_form.is_valid():
+        user.save()
     return redirect('/success')
 
 
-    
+def delete_user(request, id):
+    """Delete user if logged in user has admin rights"""
+    user = request.user
+    if user.global_role.has_permission("can_delete_users"):
+        user = User.objects.get(id=id)
+        user.delete()
+        return redirect('/success')
+    return HttpResponse("You need permission to delete user", status=403)
